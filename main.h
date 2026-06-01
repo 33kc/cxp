@@ -5,7 +5,12 @@
 #include <string>
 using namespace std;
 
-vector<string> enterfiles(string path);
+struct FileItem {
+  string name;
+  bool isDirectory;
+};
+
+vector<FileItem> enterfiles(string path);
 bool isDir(string path);
 
 #endif
