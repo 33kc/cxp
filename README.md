@@ -8,3 +8,6 @@
 | **`Arrow Down`** | Moves selection cursor down |
 | **`Enter`** or **`Arrow Right`** | Opens selected directory  |
 | **`u`** or **`Arrow Left`** | Goes back to parent directory (`cd ..`). |
+| **`c`** | Copies file - (source, destination) |
+| **'d'** | Deletes file |
+| **`m`** | Moves file into destionation, or renames |
