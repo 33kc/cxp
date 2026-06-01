@@ -9,5 +9,5 @@
 | **`Enter`** or **`Arrow Right`** | Opens selected directory  |
 | **`u`** or **`Arrow Left`** | Goes back to parent directory (`cd ..`). |
 | **`c`** | Copies file - (source, destination) |
-| **'d'** | Deletes file |
-| **`m`** | Moves file into destionation, or renames |
+| **`d`** | Deletes file |
+| **`m`** | Moves file into destination, or renames it |
