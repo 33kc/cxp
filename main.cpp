@@ -1,6 +1,8 @@
 #include <ncurses.h>
 #include <vector>
 #include <string>
+#include <sys/stat.h>
+#include <cstdlib>
 #include "main.h"
 
 using namespace std;
@@ -14,11 +16,19 @@ int main()
     init_pair(1, COLOR_CYAN, COLOR_BLACK);   
     init_pair(2, COLOR_WHITE, COLOR_BLACK);  
     
-    string currentDir = "/home/kc";
+    string currentDir;
+    char* homePath = getenv("HOME");
+    if (homePath != NULL)
+    {
+      currentDir = string(homePath);
+    }
+    else currentDir = "/";
+
     vector<FileItem> files = enterfiles(currentDir);
     size_t selected = 0; 
     int ch = 0;
-    
+    bool showPermissions=false;
+
     while(true) 
     {
         clear();
@@ -32,9 +42,20 @@ int main()
             if (files[i].isDirectory) attron(COLOR_PAIR(1));
             else attron(COLOR_PAIR(2));
             
-            if (i == selected) mvprintw(display_line, 0, "> %s", files[i].name.c_str());
-            else mvprintw(display_line, 0, "  %s", files[i].name.c_str());
-            
+            if (showPermissions) 
+            {
+                if (i == selected)
+                    mvprintw(display_line, 0, "> %-20s %s", files[i].name.c_str(), files[i].permissions.c_str());
+                else
+                    mvprintw(display_line, 0, "  %-20s %s", files[i].name.c_str(), files[i].permissions.c_str());
+            }
+            else 
+            {
+                if (i == selected)
+                    mvprintw(display_line, 0, "> %s", files[i].name.c_str());
+                else
+                    mvprintw(display_line, 0, "  %s", files[i].name.c_str());
+            }            
             if (files[i].isDirectory) attroff(COLOR_PAIR(1));
             else attroff(COLOR_PAIR(2));
         }
@@ -71,6 +92,10 @@ int main()
                 files = enterfiles(currentDir);
                 selected = 0;
             }
+        }
+        if (ch == 'p')
+        {
+            showPermissions=!showPermissions;
         }
     }
     
